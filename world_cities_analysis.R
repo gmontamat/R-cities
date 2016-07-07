@@ -1,6 +1,5 @@
 # World cities data
 
-
 LoadCities <- function() {
   # Downloads data from geonames and loads it into a dataframe
   if (!file.exists("cities1000.txt")) {
@@ -38,6 +37,14 @@ PlotCityWorldMap <- function(cities, groups = 20) {
 }
 
 
-cities <- LoadCities()
-PlotCityWorldMap(cities)
+SavePlot <- function(filename, plot_function, ...) {
+  # Receives a filename and a function that generates a plot
+  # and saves the plot as png wih the given name
+  png(filename = filename, width = 861, height = 552)
+  plot_function(...)
+  dev.off()
+}
 
+
+cities <- LoadCities()
+SavePlot("./images/world_cities.png", PlotCityWorldMap, cities)
